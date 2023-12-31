@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+    <soap:Body>
+        <m:login xmlns:m="http://www.example.org/login">
+            <m:username>admin</m:username>
+            <m:password>admin</m:password>
+        </m:login>
+    </soap:Body>
+</soap:Envelope>

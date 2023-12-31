@@ -1,0 +1,19 @@
+{
+  "name": "jscode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "IRMarkCalculator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@chilkat/ck-node11-win64": "^9.50.90",
+    "crypto": "^1.0.1",
+    "xml": "^1.0.1",
+    "xml-crypto": "^5.0.0",
+    "xmldom": "^0.6.0",
+    "xpath": "^0.0.34"
+  }
+}
