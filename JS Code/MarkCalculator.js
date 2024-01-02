@@ -1,7 +1,6 @@
 const fs = require('fs');
-const { DOMParser } = require('xmldom')
-const { SignedXml, FileKeyInfo, Transforms } = require('xml-crypto');
-const crypto = require('crypto');
+const { SignedXml } = require('xml-crypto');
+const xml2js = require('xml2js');
 
 const arguments = process.argv.slice(2);
 const filePath = arguments[0]
@@ -22,52 +21,65 @@ const getAlgorithm = () => {
     `;
 };
 
+function MyCanonicalization() {
+    const algorithm = getAlgorithm();
+    /*given a node (from the xmldom module) return its canonical representation (as string)*/
+    this.process = function (node) {
+        //you should apply your transformation before returning
+        return algorithm;
+    };
 
-const createMark = async (inputStream) => {
-    return toBase64(await getMarkBytes(inputStream));
+    this.getAlgorithmName = function () {
+        return "http://myCanonicalization";
+    };
 }
 
-async function getMarkBytes(inputStream) {
 
-    var xml = "<library>" + "<book>" + "<name>Harry Potter</name>" + "</book>" + "</library>";
+const createMark = async () => {
+    return toBase64(await getMarkBytes());
+}
 
-    // Parse the transform details to create a document
-    const algorithm = getAlgorithm();
-    const xmlDoc = new DOMParser().parseFromString(algorithm, 'application/xml');
-    // console.log(xmlDoc)
+async function getMarkBytes() {
+    var xml = await fs.readFileSync(filePath, { encoding: "utf-8" });
 
     // Construct a SignedXml object from that document
     const sig = new SignedXml({ privateKey: fs.readFileSync("client.pem") });
+    sig.CanonicalizationAlgorithms["http://MyCanonicalization"] = MyCanonicalization;
     sig.addReference({
-        xpath: "//*[local-name(.)='book']",
+        xpath: "*",
         digestAlgorithm: "http://www.w3.org/2000/09/xmldsig#sha1",
-        transforms: ["http://www.w3.org/2001/10/xml-exc-c14n#"],
+        transforms: ["http://MyCanonicalization"],
     });
-    sig.canonicalizationAlgorithm = "http://www.w3.org/2001/10/xml-exc-c14n#";
+    sig.canonicalizationAlgorithm = "http://MyCanonicalization";
     sig.signatureAlgorithm = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
-    // console.log('sig', sig)
 
     // Now perform the transform on the input to get the results.
-    // const resultBuffer = await sig.computeSignature(xml);
-    // console.log("dddd", resultBuffer)
+    await sig.computeSignature(xml);
+    const signedXml = await sig.getSignedXml()
 
-    sig.computeSignature(xml);
-    console.log("dddd", resultBuffer)
+    // Parse the XML content
+    var digestValue = ""
+    const parser = new xml2js.Parser({ explicitArray: false, mergeAttrs: true });
+    parser.parseString(signedXml, (err, result) => {
+        if (err) {
+            console.error('Error parsing XML:', err);
+        } else {
+            try {
+                digestValue = result['soap:Envelope']['Signature']['SignedInfo']['Reference']['DigestValue'];
+                console.log('DigestValue:', digestValue);
+            } catch (err) {
+                console.error('Error extracting DigestValue:', err);
+            }
+        }
+    });
+    await fs.writeFileSync("signed.xml", signedXml);
+    return digestValue
 }
 
-
-
 const toBase64 = (irMarkBytes) => {
-    //we can use the Buffer class to convert the byte array to a base64 string
-    // return Buffer.from(irMarkBytes).toString('base64');
-
     const buffer = Buffer.from(irMarkBytes);
-    console.log(buffer)
-    // const buffer = Buffer.from([65, 66, 67, 68]);
-
     // Convert buffer to Base64 string using toString
     const base64String = buffer.toString('base64');
-    console.log(base64String);
     return base64String;
 };
 
@@ -75,12 +87,13 @@ const toBase64 = (irMarkBytes) => {
 const convertFileToInputStream = (filePath) => {
     // that reads the file into a byte array
     const fileStream = fs.readFileSync(filePath);
-    console.log(fileStream);
     return fileStream;
 
     // const fileStream = fs.createReadStream(filePath);
     // console.log(fs.readFileSync(filePath).toString('hex'));
 }
 
-// toBase64(convertFileToInputStream('../Samplexmlfiles/test.xml'))
-console.log("marker -->", createMark(convertFileToInputStream(filePath)))
+(async () => {
+    const marker = await createMark();
+    console.log("marker -->", marker);
+})();

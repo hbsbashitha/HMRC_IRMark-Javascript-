@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" Id="_0">
+    <soap:Body>
+        <m:login xmlns:m="http://www.example.org/login">
+            <m:username>admin</m:username>
+            <m:password>admin</m:password>
+        </m:login>
+    </soap:Body>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://myCanonicalization" />
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+            <Reference URI="#_0">
+                <Transforms>
+                    <Transform Algorithm="http://myCanonicalization" />
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                <DigestValue>HwlgfiM9Po/gu5O+4DTdo9z3z9I=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>
+            XMH52ITjD5Gn+eLHN3cnBpqDhatUPyj6y0n6glT76G8MCRXuShkN8M95x1atpGsiQf7pu+TqjiQv31sFvND6GKewXcowvZk6k2+UGWtgktJDvvXDtqrJ5f/TbBU+4QnocKt4EEme3wpLvEZwXELZ2r0Od7MT4hl/A99HFewq7AuOOeAaaHPrgwgQ+AUXP6TWAv4N0jEGFY+CkeKCOpfvpqSxiF2OPG/AZAySiGIZ0PDvEFnU3ggVmREKrJgmP1NHC+zyfNbauKxftpB/jnH25BA4ythUh5EQqJoe86AhDGNIZ/IYd6OkNh1sMnCtz7/XyE7sJTUD/xvxPmzRcwIlsQ==</SignatureValue>
+    </Signature>
+</soap:Envelope>
