@@ -4,7 +4,7 @@ const xml2js = require('xml2js');
 
 const arguments = process.argv.slice(2);
 const filePath = arguments[0]
-const DEFAULT_SEC_HASH_ALGORITHM = 'SHA';
+
 const getAlgorithm = () => {
     return `
         <?xml version='1.0'?>
@@ -28,7 +28,6 @@ function MyCanonicalization() {
         //you should apply your transformation before returning
         return algorithm;
     };
-
     this.getAlgorithmName = function () {
         return "http://myCanonicalization";
     };
@@ -46,16 +45,16 @@ async function getMarkBytes() {
     const sig = new SignedXml({ privateKey: fs.readFileSync("client.pem") });
     sig.CanonicalizationAlgorithms["http://MyCanonicalization"] = MyCanonicalization;
     sig.addReference({
-        xpath: "*",
+        xpath: "//*[local-name(.)='FullPaymentSubmission']",
         digestAlgorithm: "http://www.w3.org/2000/09/xmldsig#sha1",
-        transforms: ["http://MyCanonicalization"],
+        transforms: ["http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"],
     });
-    sig.canonicalizationAlgorithm = "http://MyCanonicalization";
+    sig.canonicalizationAlgorithm = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments";
     sig.signatureAlgorithm = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
 
     // Now perform the transform on the input to get the results.
-    await sig.computeSignature(xml);
-    const signedXml = await sig.getSignedXml()
+    sig.computeSignature(xml);
+    const signedXml = sig.getSignedXml()
 
     // Parse the XML content
     var digestValue = ""
@@ -65,7 +64,7 @@ async function getMarkBytes() {
             console.error('Error parsing XML:', err);
         } else {
             try {
-                digestValue = result['soap:Envelope']['Signature']['SignedInfo']['Reference']['DigestValue'];
+                digestValue = result['GovTalkMessage']['Signature']['SignedInfo']['Reference']['DigestValue'];
                 console.log('DigestValue:', digestValue);
             } catch (err) {
                 console.error('Error extracting DigestValue:', err);
@@ -73,7 +72,9 @@ async function getMarkBytes() {
         }
     });
     await fs.writeFileSync("signed.xml", signedXml);
-    return digestValue
+    // Convert the digest value to bytes
+    const encoder = new TextEncoder();
+    return encoder.encode(digestValue)
 }
 
 const toBase64 = (irMarkBytes) => {

@@ -1,24 +1,149 @@
-<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" Id="_0">
-    <soap:Body>
-        <m:login xmlns:m="http://www.example.org/login">
-            <m:username>admin</m:username>
-            <m:password>admin</m:password>
-        </m:login>
-    </soap:Body>
-    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-        <SignedInfo>
-            <CanonicalizationMethod Algorithm="http://myCanonicalization" />
-            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
-            <Reference URI="#_0">
-                <Transforms>
-                    <Transform Algorithm="http://myCanonicalization" />
-                </Transforms>
-                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-                <DigestValue>HwlgfiM9Po/gu5O+4DTdo9z3z9I=</DigestValue>
-            </Reference>
-        </SignedInfo>
-        <SignatureValue>
-            XMH52ITjD5Gn+eLHN3cnBpqDhatUPyj6y0n6glT76G8MCRXuShkN8M95x1atpGsiQf7pu+TqjiQv31sFvND6GKewXcowvZk6k2+UGWtgktJDvvXDtqrJ5f/TbBU+4QnocKt4EEme3wpLvEZwXELZ2r0Od7MT4hl/A99HFewq7AuOOeAaaHPrgwgQ+AUXP6TWAv4N0jEGFY+CkeKCOpfvpqSxiF2OPG/AZAySiGIZ0PDvEFnU3ggVmREKrJgmP1NHC+zyfNbauKxftpB/jnH25BA4ythUh5EQqJoe86AhDGNIZ/IYd6OkNh1sMnCtz7/XyE7sJTUD/xvxPmzRcwIlsQ==</SignatureValue>
-    </Signature>
-</soap:Envelope>
+<?xml version="1.0" encoding="UTF-8"?>
+<GovTalkMessage xmlns="http://www.govtalk.gov.uk/CM/envelope">
+    <EnvelopeVersion>2.0</EnvelopeVersion>
+    <Header>
+        <MessageDetails>
+            <Class>HMRC-PAYE-RTI-FPS</Class>
+            <Qualifier>request</Qualifier>
+            <Function>submit</Function>
+            <CorrelationID/>
+            <Transformation>XML</Transformation>
+            <GatewayTest>1</GatewayTest>
+        </MessageDetails>
+        <SenderDetails>
+            <IDAuthentication>
+                <SenderID>ISV635</SenderID>
+                <Authentication>
+                    <Method>clear</Method>
+                    <Role>principal</Role>
+                    <Value>12qwaszx34ERDFCV56tyghbn78UIJKM %*AAA,./llll@kaa[_}-qwerty=poiuytrewqLKJHGFDSA\ZZZ#p9876?_=PPPbvcxz;qz:aa6+54hahgbcvsi{gg(g)0O.b</Value>
+                </Authentication>
+            </IDAuthentication>
+        </SenderDetails>
+    </Header>
+    <GovTalkDetails>
+        <Keys>
+            <Key Type="TaxOfficeNumber">635</Key>
+            <Key Type="TaxOfficeReference">A635</Key>
+        </Keys>
+        <TargetDetails>
+            <Organisation>IR</Organisation>
+        </TargetDetails>
+        <ChannelRouting>
+            <Channel>
+                <URI>0123</URI>
+                <Product>WealthOs</Product>
+                <Version>1.0</Version>
+            </Channel>
+            <Timestamp>2023-06-23T12:00:00</Timestamp>
+        </ChannelRouting>
+    </GovTalkDetails>
+    <Body>
+        <IRenvelope xmlns="http://www.govtalk.gov.uk/taxation/PAYE/RTI/FullPaymentSubmission/23-24/2">
+            <IRheader>
+                <Keys>
+                    <Key Type="TaxOfficeNumber">635</Key>
+                    <Key Type="TaxOfficeReference">A635</Key>
+                </Keys>
+                <PeriodEnd>2024-04-05</PeriodEnd>
+                <DefaultCurrency>GBP</DefaultCurrency>
+                <IRmark Type="generic">HFB7Em+HEEjQLTEemuRGrVof0Uo=</IRmark>
+                <Sender>Employer</Sender>
+            </IRheader>
+            <FullPaymentSubmission Id="_0">
+                <EmpRefs>
+                    <OfficeNo>635</OfficeNo>
+                    <PayeRef>A635</PayeRef>
+                    <AORef>635PC00000000</AORef>
+                    <COTAXRef>1111111111</COTAXRef>
+                </EmpRefs>
+                <RelatedTaxYear>23-24</RelatedTaxYear>
+                <Employee>
+                    <EmployeeDetails>
+                        <NINO>RN000004A</NINO>
+                        <Name>
+                            <Ttl>Mr</Ttl>
+                            <Fore>John</Fore>
+                            <Fore>Edward</Fore>
+                            <Sur>Surname</Sur>
+                        </Name>
+                        <Address>
+                            <Line>45 High Street</Line>
+                            <Line>Riverside</Line>
+                            <Line>Anytown</Line>
+                            <Line>Anyshire</Line>
+                            <UKPostcode>NE14 7NS</UKPostcode>
+                        </Address>
+                        <BirthDate>1966-05-11</BirthDate>
+                        <Gender>M</Gender>
+                    </EmployeeDetails>
+                    <Employment>
+                        <OffPayrollWorker>yes</OffPayrollWorker>
+                        <PayId>123-A02</PayId>
+                        <IrrEmp>yes</IrrEmp>
+                        <LeavingDate>2023-06-20</LeavingDate>
+                        <FiguresToDate>
+                            <TaxablePay>28750.00</TaxablePay>
+                            <TotalTax>12937.50</TotalTax>
+                            <PostgradLoansTD>123.00</PostgradLoansTD>
+                        </FiguresToDate>
+                        <Payment>
+                            <PayFreq>M1</PayFreq>
+                            <PmtDate>2023-06-20</PmtDate>
+                            <LateReason>H</LateReason>
+                            <MonthNo>3</MonthNo>
+                            <PeriodsCovered>1</PeriodsCovered>
+                            <HoursWorked>B</HoursWorked>
+                            <TaxCode BasisNonCumulative="yes" TaxRegime="C">D1</TaxCode>
+                            <TaxablePay>26250.00</TaxablePay>
+                            <NonTaxOrNICPmt>30000.00</NonTaxOrNICPmt>
+                            <PayAfterStatDedns>15750.00</PayAfterStatDedns>
+                            <Class1ANICsYTD>3450.00</Class1ANICsYTD>
+                            <Benefits>
+                                <Car>
+                                    <Make>Reliant Robin</Make>
+                                    <FirstRegd>2019-04-06</FirstRegd>
+                                    <CO2>42</CO2>
+                                    <ZeroEmissionsMileage>74</ZeroEmissionsMileage>
+                                    <Fuel>F</Fuel>
+                                    <Amendment>no</Amendment>
+                                    <Price>16000.00</Price>
+                                    <AvailFrom>2023-04-06</AvailFrom>
+                                    <CashEquiv>800.00</CashEquiv>
+                                </Car>
+                            </Benefits>
+                            <StudentLoanRecovered PlanType="04">10.00</StudentLoanRecovered>
+                            <PostgradLoanRecovered>123.00</PostgradLoanRecovered>
+                            <TaxDeductedOrRefunded>562.50</TaxDeductedOrRefunded>
+                            <SPBPYTD>242.00</SPBPYTD>
+                        </Payment>
+                        <NIlettersAndValues>
+                            <NIletter>V</NIletter>
+                            <GrossEarningsForNICsInPd>1250.00</GrossEarningsForNICsInPd>
+                            <GrossEarningsForNICsYTD>3750.00</GrossEarningsForNICsYTD>
+                            <AtLELYTD>481.00</AtLELYTD>
+                            <LELtoPTYTD>182.00</LELtoPTYTD>
+                            <PTtoUELYTD>587.00</PTtoUELYTD>
+                            <TotalEmpNICInPd>54.86</TotalEmpNICInPd>
+                            <TotalEmpNICYTD>164.58</TotalEmpNICYTD>
+                            <EmpeeContribnsInPd>59.67</EmpeeContribnsInPd>
+                            <EmpeeContribnsYTD>179.01</EmpeeContribnsYTD>
+                        </NIlettersAndValues>
+                        <NIlettersAndValues>
+                            <NIletter>F</NIletter>
+                            <GrossEarningsForNICsInPd>1250.00</GrossEarningsForNICsInPd>
+                            <GrossEarningsForNICsYTD>3750.00</GrossEarningsForNICsYTD>
+                            <AtLELYTD>481.00</AtLELYTD>
+                            <LELtoPTYTD>182.00</LELtoPTYTD>
+                            <PTtoUELYTD>587.00</PTtoUELYTD>
+                            <TotalEmpNICInPd>54.86</TotalEmpNICInPd>
+                            <TotalEmpNICYTD>164.58</TotalEmpNICYTD>
+                            <EmpeeContribnsInPd>59.67</EmpeeContribnsInPd>
+                            <EmpeeContribnsYTD>179.01</EmpeeContribnsYTD>
+                        </NIlettersAndValues>
+                    </Employment>
+                </Employee>
+            </FullPaymentSubmission>
+        </IRenvelope>
+    </Body>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"/><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><Reference URI="#_0"><Transforms><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><DigestValue>jZ6FiGvSPbRcDKGxdajX7P1xbO4=</DigestValue></Reference></SignedInfo><SignatureValue>Vr+bzClsrKcizaYFhK4d1U76N4m8xTI3pyvdXeb9yaNa0iuouPHYAmYQ+xZ086IfIGlAXCF5H8i6NsMrJ4uys14o14Lnnn+nn13ww9WEdQtx/QqWHl+8YI215aDgBTP29SbqN7Jdd8ElGpjzK92k2NjGp1DJDO3HXTJbOiSfw2BV+73AaV9x6ait1n10v4lHrhk0nPgl3GbmleQgnTXZT9ePS0zk4zP/BztyV0Zn0qE6Uq9XqbyIgwwZZYQFfhVi1NALXyIXagwvxofaXcY8ANZe2GRvxtzBWnPgyzqspyYlp+tH8AMUc9Oiz7xPXFZjC7TR3sJrAdrCgr3OpEJTOA==</SignatureValue></Signature></GovTalkMessage>
