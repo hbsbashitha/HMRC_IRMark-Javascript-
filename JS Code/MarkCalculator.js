@@ -2,8 +2,8 @@ const fs = require('fs');
 const { SignedXml } = require('xml-crypto');
 const xml2js = require('xml2js');
 
-const arguments = process.argv.slice(2);
-const filePath = arguments[0]
+const args = process.argv.slice(2);
+const filePath = args[0]
 
 const getAlgorithm = () => {
     return `
@@ -47,9 +47,13 @@ async function getMarkBytes() {
     sig.addReference({
         xpath: "//*[local-name(.)='Body']",
         digestAlgorithm: "http://www.w3.org/2000/09/xmldsig#sha1",
-        transforms: ["http://www.w3.org/TR/2001/REC-xml-c14n-20010315"],
+        // transforms: ["http://www.w3.org/TR/2001/REC-xml-c14n-20010315"],
+        transforms: ["http://MyCanonicalization"],
+
     });
-    sig.canonicalizationAlgorithm = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315";
+    // sig.canonicalizationAlgorithm = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315";
+    sig.canonicalizationAlgorithm = "http://MyCanonicalization";
+
     sig.signatureAlgorithm = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
 
     // Now perform the transform on the input to get the results.

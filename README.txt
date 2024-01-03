@@ -1,1 +1,3 @@
-.\HMRCMark.bat ..\..\Samplexmlfiles\test.xml
+.\IRMark.bat ..\..\SampleXmlFiles\test.xml
+
+node MarkCalculator.js ../Samplexmlfiles/test.xml
