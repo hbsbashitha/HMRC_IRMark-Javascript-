@@ -45,11 +45,11 @@ async function getMarkBytes() {
     const sig = new SignedXml({ privateKey: fs.readFileSync("client.pem") });
     sig.CanonicalizationAlgorithms["http://MyCanonicalization"] = MyCanonicalization;
     sig.addReference({
-        xpath: "//*[local-name(.)='FullPaymentSubmission']",
+        xpath: "//*[local-name(.)='Body']",
         digestAlgorithm: "http://www.w3.org/2000/09/xmldsig#sha1",
-        transforms: ["http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"],
+        transforms: ["http://www.w3.org/TR/2001/REC-xml-c14n-20010315"],
     });
-    sig.canonicalizationAlgorithm = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments";
+    sig.canonicalizationAlgorithm = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315";
     sig.signatureAlgorithm = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
 
     // Now perform the transform on the input to get the results.
