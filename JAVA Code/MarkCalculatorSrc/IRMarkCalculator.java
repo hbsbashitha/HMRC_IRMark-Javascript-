@@ -1,4 +1,5 @@
-package uk.gov.hmrc.mark;
+// package uk.gov.hmrc.mark;
+// package markcalculatorsrc;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

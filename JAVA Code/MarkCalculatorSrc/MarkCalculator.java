@@ -1,5 +1,8 @@
-package uk.gov.hmrc.mark;
+// package uk.gov.hmrc.mark;
+// package markcalculatorsrc;
 import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.InputStream;
 import java.security.MessageDigest;
 
@@ -76,7 +79,13 @@ public abstract class MarkCalculator
 
 		// Now perform the transform on the input to get the results.
       	XMLSignatureInput input = new XMLSignatureInput(in);
+        System.out.println("input = \n" + new String(input.getBytes()));
       	XMLSignatureInput result = transforms.performTransforms(input);
+        System.out.println("result = \n" + new String(result.getBytes()));
+
+        // String filePath = "..\\..\\SampleXmlFiles\\test2.xml";
+        // OutputStream outputStream = new FileOutputStream(filePath);
+        // outputStream.write(result.getBytes());
 
       	// Uncomment this line to see transform output
       	// System.out.println("\noutput = \n" + new String(result.getBytes()));
