@@ -79,11 +79,12 @@ public abstract class MarkCalculator
 
 		// Now perform the transform on the input to get the results.
       	XMLSignatureInput input = new XMLSignatureInput(in);
-        System.out.println("input = \n" + new String(input.getBytes()));
+        // System.out.println("input = \n" + new String(input.getBytes()));
       	XMLSignatureInput result = transforms.performTransforms(input);
-        System.out.println("result = \n" + new String(result.getBytes()));
+        // System.out.println("result = \n" + new String(result.getBytes()));
 
-        // String filePath = "..\\..\\SampleXmlFiles\\test2.xml";
+        // Uncomment this section to see the transform output and save it to a file
+        // String filePath = "..\\..\\SampleXmlFiles\\javaout.xml";
         // OutputStream outputStream = new FileOutputStream(filePath);
         // outputStream.write(result.getBytes());
 
