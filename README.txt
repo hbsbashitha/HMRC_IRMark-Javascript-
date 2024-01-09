@@ -15,3 +15,5 @@ java IRMarkCalculator ..\..\SampleXmlFiles\test.xml
 java markcalculatorsrc.IRMarkCalculator ..\..\SampleXmlFiles\test.xml
 
 javac -cp "lib/*" -d . MarkCalculator.java IRMarkCalculator.java
+
+node IRMarker.js ../Samplexmlfiles/jstest.xml
