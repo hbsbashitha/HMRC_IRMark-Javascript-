@@ -43,7 +43,7 @@ const xml2js = require('xml2js');
 
     // Remove the IRmark element and pretty print the XML 
     body = builder.buildObject(body);
-    body = body.replace(/<IRmark\s+Type="generic">\s*<\/IRmark>/, '').replace(/\n(?!$)/g, '\n    ');
+    body = body.replace(/<IRmark\s+Type="generic">.*?<\/IRmark>/s, '').replace(/\n(?!$)/g, '\n    ');
 
     // Compute the SHA1 hash
     const shasum = crypto.createHash("sha1");
